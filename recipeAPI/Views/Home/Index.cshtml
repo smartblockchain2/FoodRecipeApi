@@ -1,0 +1,183 @@
+﻿@model recipeAPI.Models.Recipe
+
+@{
+                ViewBag.Title = "Home Page";
+}
+
+
+<div id="btnSearchGroup" class="input-group align-center" style="justify-content: center; align-items: center;" title="Enter food for desired recipe then click button.">
+    <input type="text" id="recipeSearchText" class="form-control mrsm-2" style="font-size: 1.5rem;" placeholder="Search for Recipe...">
+    <button class="btn btn-success" aria-label="Search" style="border-radius: 0 10% 10% 0; height: 3.4rem; font-size: 100%; padding: 0 15 0 0;" id="btnSearch" type="submit">Search Recipes</button>
+</div><!-- /input-group -->
+
+<div class="row" style="margin: 20px 0 0 0;">
+    <div id="wait" style="display:none;width:69px;height:89px;border:1px solid black;position:absolute;top:50%;left:50%;padding:2px;"><img src="~/"='demo_wait.gif' width="64" height="64" /><br>Loading..</div>
+
+    <div id="cand" class="row">
+        @*<input type="text" value=item.label />
+            <img id="imgElement" height="75" width="75">
+            <input id="recipeName" type="text" readonly />*@
+    </div>
+</div>
+
+
+<script>
+
+
+  
+
+    $(document).ready(function () {
+        console.log("Inside document.ready : before btnSearch click event handler");
+        //  $('#recipeSearchText').focus();
+
+        $('#recipeSearchText').focus();
+
+        $(document).tooltip();
+
+        $('#recipeSearchText').keypress(function (event) {
+            var keycode = (event.keyCode ? event.keyCode : event.which);
+            if (keycode == '13') {
+                $('#btnSearch').click();
+            }
+        });
+
+        $('#btnSearch').on('click', function (e) {
+            console.log("In btnSearch click event handler... here we make an ajax call to the edamam api.");
+
+            var recipeSearchValue = $('#recipeSearchText').val();
+            if (!(recipeSearchValue && (recipeSearchValue = $.trim(recipeSearchValue)))) {
+                e.preventDefault();
+                return;
+            }
+
+            recipeSearchValue = recipeSearchValue.replace(' ', '+');
+            var urldata = 'https://api.edamam.com/search?q=' + recipeSearchValue + '&app_id=59d201f4&app_key=a43629aaaebb6aef4e036fee8960388b&from=0&to=5&calories=591-722&health=alcohol-free';
+            //'https://api.edamam.com/search?q=' + recipeSearchValue + '&app_id=59d201f4&app_key=a43629aaaebb6aef4e036fee8960388b&from=0&to=3&calories=591-722&health=alcohol-free',
+            // toastr.warning("Hello World", "I'm a toast message.");
+            $.ajax({
+                type: 'POST',
+                dataType: "json",
+                url: urldata,
+                data: { get_param: 'value' },
+                success: function (data) {
+                    $("#wait").css("display", "block");
+                    var names = data;
+                    console.log(data);  // for testing only
+                    $('#cand').html('');
+                    CreateCards(data);
+                    //$("#wait").css("display", "none");
+                    //jQuery.each(data.hits, function (index, value) {
+                    //    console.log("One is ", value.recipe);
+                    //    $.each(value.recipe, function (index, val) {
+                    //        console.log("Two is ", val.image);
+                    //    });
+
+                    //});
+                  
+                    //  $('#cand').html(data);
+                    //https://www.edamam.com/web-img/c42/c4216322ababad6e403543e89173ace3.jpg
+                    // $("#imgElement").prop("src", data.hits[0].recipe.image);
+                    // $("#recipeName").val(data.hits[0].recipe.label);
+
+                }
+            });
+        });
+    });
+    function CreateCardGroup(data) {
+
+    }
+
+    function CreateCards(data) {
+        var recipeCount = data.hits.length;
+        var rowCount = Math.ceil(recipeCount / 4);
+
+        // Clear the view before rendering new material.
+        $('#cand').html('');
+        var colCounter = 0;
+        var rowContainerCounter = 0;
+        var rowContainer = "";
+        $.each(data.hits, function (i, value) {
+
+            colCounter++;
+            rowContainerCounter++;
+            rowCounterId = "rowId" + colCounter;
+            if (rowContainerCounter == 1) {
+                //var rowContainer = $("<div id=" + rowCounterId + " class='row' style='border: none;'>");
+                rowContainer = "";
+                rowContainer = $("<div style='border: none;'>");
+                rowContainer.addClass('row');
+            }
+
+            //create recipe card.
+            var card = $("<div style='border: inset;'>");
+            //Make recipe search results section mobile responsive.
+            //On small screens, display one recipe per row.
+            //On medium screens, display two recipes per row.
+            //On large screens, display three recipes per row.
+            card.addClass("card col s12 m6 l4");
+
+            var cardImg = $("<div>");
+            cardImg.addClass("card-image recipe-image");
+
+            //Create variable for recipe image and append to card.
+            var img = $("<img style='width: 90%; margin: 5%;'>");
+            imgAPI = data.hits[i].recipe.image;
+            img.attr("src", imgAPI);
+            cardImg.append(img);
+            card.append(cardImg);
+
+            var cardContent = $("<div>");
+            cardContent.addClass("card-content");
+
+            //Variable for the recipe title/label.
+            var spanTitle = $("<span>");
+            spanTitle.addClass("card-title");
+            label = data.hits[i].recipe.label;
+            spanTitle.text(label);
+
+            //This appends the recipe title/label to the recipe image.
+            card.append(spanTitle);
+
+            //Variable for the recipe title/label/ingredients.
+            var spanIngredients = $("<span>");
+            spanIngredients.addClass("card-incredients");
+
+            spanIngredients.append("<h4><strong>Ingredients</strong><h4>");
+            var ulIngredientTag = $("<ol>");
+            ingredients = data.hits[i].recipe.ingredientLines;
+
+            // loop through and capture the recipe ingredients
+            var k = 0;
+            $.each(ingredients, function (j, value) {
+                k++;
+                console.log("ingredient value is " + value);
+                console.log("ingredient value is " + ingredients[j]);
+                //var nbrLabel = k.length == 1 ?   ulIngredientTag.append('<li>' + "&nbsp;" + k + " ) &nbsp;" + value + '</li>') : ulIngredientTag.append('<li>' + nbrLabel + " ) &nbsp;" + value + '</li>');
+                //  ulIngredientTag.append('<li>' + value + '</li>');
+
+                if (k.length == 1) {
+                    ulIngredientTag.append('<li> <span>' + '&ensp;' + k + ") &nbsp;" + value + '</span></li>')
+                }
+                else {
+                    ulIngredientTag.append('<li> <span>' + k + ") &nbsp;" + value + '</span></li>');
+                }
+            });
+            //ulIngredientTag.append("</ul>");
+            spanIngredients.append(ulIngredientTag);
+            //This appends the recipe title/label to the recipe image.
+            card.append(spanIngredients);
+
+
+            var cardAction = $("<div>");
+            cardAction.addClass("card-action");
+
+            console.log("ready to append");
+            rowContainer.append(card);
+
+            if (colCounter % 3 == 0 || data.hits.length == colCounter) {
+                rowContainerCounter = 0;
+                $("#cand").append(rowContainer);
+            }
+        });// end $.each from the top
+    }
+</script>
