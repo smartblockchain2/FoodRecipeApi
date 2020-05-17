@@ -1,5 +1,7 @@
 # FoodRecipes
-  Display Recipes based on user queries against Edamam Recipe API.
+  This prototype is hosted at:  <a href="/https://recipeplanly.azurewebsites.net/"   target="_blank">Recipe Lookup</a>
+  
+  Display Recipes based on user queries against Edamam Recipe API.  
 
 ## Purpose
   This was designed as a proof of concept, for displaying Recipes online, using Javascript, jQuery, and Ajax calls against the Edamam Recipe API.
