@@ -1,5 +1,5 @@
 # FoodRecipes
-  This prototype is hosted at:  <a href="/https://recipeplanly.azurewebsites.net/"   target="_blank">Recipe Lookup</a>
+  This prototype is hosted at:  <a href="https://recipeplanly.azurewebsites.net/"   target="_blank">Recipe Lookup</a>
   
   Display Recipes based on user queries against Edamam Recipe API.  
 
