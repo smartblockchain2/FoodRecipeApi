@@ -176,7 +176,6 @@ C:\Users\creat\source\repos\recipe-API\recipeAPI\bin\Microsoft.AI.WindowsServer.
 C:\Users\creat\source\repos\recipe-API\recipeAPI\bin\Microsoft.AI.Web.xml
 C:\Users\creat\source\repos\recipe-API\recipeAPI\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 C:\Users\creat\source\repos\recipe-API\recipeAPI\obj\Release\recipeAPI.csprojAssemblyReference.cache
-C:\Users\creat\source\repos\recipe-API\recipeAPI\obj\Release\recipeAPI.csproj.CoreCompileInputs.cache
 C:\Users\creat\source\repos\recipe-API\recipeAPI\obj\Release\recipeAPI.csproj.CopyComplete
 C:\Users\creat\source\repos\recipe-API\recipeAPI\obj\Release\recipeAPI.dll
 C:\Users\creat\source\repos\recipe-API\recipeAPI\obj\Release\recipeAPI.pdb

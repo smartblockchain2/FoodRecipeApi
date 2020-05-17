@@ -11,7 +11,7 @@
 </div><!-- /input-group -->
 
 <div class="row" style="margin: 20px 0 0 0;">
-    <div id="wait" style="display:none;width:69px;height:89px;border:1px solid black;position:absolute;top:50%;left:50%;padding:2px;"><img src="~/"='demo_wait.gif' width="64" height="64" /><br>Loading..</div>
+   @* <div id="wait" style="display:none;width:69px;height:89px;border:1px solid black;position:absolute;top:50%;left:50%;padding:2px;"><img src="~/" ='demo_wait.gif' width="64" height="64" /><br>Loading..</div>*@
 
     <div id="cand" class="row">
         @*<input type="text" value=item.label />
@@ -32,7 +32,6 @@
 
         $('#recipeSearchText').focus();
 
-        $(document).tooltip();
 
         $('#recipeSearchText').keypress(function (event) {
             var keycode = (event.keyCode ? event.keyCode : event.which);
@@ -54,18 +53,20 @@
             var urldata = 'https://api.edamam.com/search?q=' + recipeSearchValue + '&app_id=59d201f4&app_key=a43629aaaebb6aef4e036fee8960388b&from=0&to=5&calories=591-722&health=alcohol-free';
             //'https://api.edamam.com/search?q=' + recipeSearchValue + '&app_id=59d201f4&app_key=a43629aaaebb6aef4e036fee8960388b&from=0&to=3&calories=591-722&health=alcohol-free',
             // toastr.warning("Hello World", "I'm a toast message.");
+
+           // $("#wait").css("display", "block");
+
             $.ajax({
                 type: 'POST',
                 dataType: "json",
                 url: urldata,
                 data: { get_param: 'value' },
                 success: function (data) {
-                    $("#wait").css("display", "block");
                     var names = data;
                     console.log(data);  // for testing only
                     $('#cand').html('');
                     CreateCards(data);
-                    //$("#wait").css("display", "none");
+                  //  $("#wait").css("display", "none");
                     //jQuery.each(data.hits, function (index, value) {
                     //    console.log("One is ", value.recipe);
                     //    $.each(value.recipe, function (index, val) {
@@ -83,9 +84,7 @@
             });
         });
     });
-    function CreateCardGroup(data) {
 
-    }
 
     function CreateCards(data) {
         var recipeCount = data.hits.length;
@@ -109,7 +108,7 @@
             }
 
             //create recipe card.
-            var card = $("<div style='border: inset;'>");
+            var card = $("<div style='border: none;'>");
             //Make recipe search results section mobile responsive.
             //On small screens, display one recipe per row.
             //On medium screens, display two recipes per row.
