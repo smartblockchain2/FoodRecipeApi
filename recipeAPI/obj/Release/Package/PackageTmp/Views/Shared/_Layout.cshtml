@@ -44,36 +44,47 @@
 <body>
 
     <div class="navbar navbar-expand-lg navbar-light bg-light" style="padding-bottom: 0;">
-            <span class="navbar navbar-item navbar-brand">
-                @Html.ActionLink("Recipe Organizer", "Index", "Home", new { area = "" }, new { @class = "navbar-brand text-primary strong", style = "font-size:large;" })
-            </span>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+        <span class="navbar navbar-item navbar-brand">
+            @Html.ActionLink("Recipe API Query Prototype", "Index", "Home", new { area = "" }, new { @class = "navbar-brand text-primary strong", style = "font-size:large;" })
 
-        <nav class="collapse navbar-collapse" id="navbarSupportedContent" sstyle="navbar-bottom: 0;">
-            <ul class="navbar-nav mr-auto" style="font-size:large;">
-                <li class="nav-item nav-link">@Html.ActionLink("Home", "Index", "Home")</li>
-                <li class="nav-link">@Html.ActionLink("About", "About", "Home")</li>
-                <li class="nav-link">@Html.ActionLink("Contact", "Contact", "Home")</li>
 
-            </ul>
-            @*<form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-successmy-2 my-sm-0" type="submit">Search</button>
-        </form>*@
-        </nav>
+            @*this is the hamburger navigation button exposed as the view shrinks to a certain dimension*@
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <nav class="collapse navbar-collapse" id="navbarSupportedContent" style="padding-bottom: 0;">
+                <ul class="navbar-nav mr-auto" style="font-size:large;">
+                    <li class="nav-item nav-link">@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li class="nav-link">@Html.ActionLink("About", "About", "Home")</li>
+                    <li class="nav-link">@Html.ActionLink("Contact", "Contact", "Home")</li>
+
+                </ul>
+                @*<form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-successmy-2 my-sm-0" type="submit">Search</button>
+            </form>*@
+
+            </nav>
+
+            <span id="msg" style="opacity: 75%; border: inset; color: blue;">This prototype project uses the free version of the Edamam API - which is limited to 5 requests per minute.</span>
+            @*<div class="navbar navbar-item navbar-brand" style="text-decoration-color: blue;" title="This prototype project uses the free version of the Edamam Recipe API.  The free version is limited to 5 requests per minute.">
+        </div>*@
+        </span>
+        
     </div>
+    
 
     <div class="container body-content">
         @RenderBody()
         @*<hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>*@
+            <footer>
+                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            </footer>*@
     </div>
 
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>
 </html>
+

@@ -1,9 +1,7 @@
 ﻿@model recipeAPI.Models.Recipe
-
 @{
                 ViewBag.Title = "Home Page";
 }
-
 
 <div id="btnSearchGroup" class="input-group align-center" style="justify-content: center; align-items: center;" title="Enter food for desired recipe then click button.">
     <input type="text" id="recipeSearchText" class="form-control mrsm-2" style="font-size: 1.5rem;" placeholder="Search for Recipe...">
@@ -23,16 +21,13 @@
 
 <script>
 
-
-  
-
     $(document).ready(function () {
-        console.log("Inside document.ready : before btnSearch click event handler");
-        //  $('#recipeSearchText').focus();
-
+        $("#msg").fadeOut(15000);
+        
+        // set focus to the search text box once the view is rendered.
         $('#recipeSearchText').focus();
 
-
+        // trigger the buttonSearch click event handler when the enter key is pressed.
         $('#recipeSearchText').keypress(function (event) {
             var keycode = (event.keyCode ? event.keyCode : event.which);
             if (keycode == '13') {
@@ -40,9 +35,9 @@
             }
         });
 
+        // btnSearch click event handler
         $('#btnSearch').on('click', function (e) {
-            console.log("In btnSearch click event handler... here we make an ajax call to the edamam api.");
-
+            //console.log("In btnSearch click event handler... here we make an ajax call to the edamam api.");
             var recipeSearchValue = $('#recipeSearchText').val();
             if (!(recipeSearchValue && (recipeSearchValue = $.trim(recipeSearchValue)))) {
                 e.preventDefault();
@@ -72,14 +67,12 @@
                     //    $.each(value.recipe, function (index, val) {
                     //        console.log("Two is ", val.image);
                     //    });
-
                     //});
                   
                     //  $('#cand').html(data);
                     //https://www.edamam.com/web-img/c42/c4216322ababad6e403543e89173ace3.jpg
                     // $("#imgElement").prop("src", data.hits[0].recipe.image);
                     // $("#recipeName").val(data.hits[0].recipe.label);
-
                 }
             });
         });
